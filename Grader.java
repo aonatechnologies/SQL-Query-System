@@ -1,3 +1,6 @@
+import java.io.File
+
+
 public class Grader {
 	private String myTestLoc, myDirectory;
 	
@@ -5,5 +8,7 @@ public class Grader {
 		this.myDirectory=directory;
 		this.myTestLoc=testLoc;
 	}
+	
+	
 	
 }
