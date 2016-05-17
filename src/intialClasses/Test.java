@@ -29,7 +29,17 @@ public class Test{
 		}
 		Collections.shuffle(this.myQuestions);
 	}
+	public static String toArrayString(ArrayList<Question> al){
+		String output = "";
+		for(Question s : al){
+			output +=s+" < : > ";
+		}
+		return output.substring(0,output.length()-7);
+	}
 	
+	public String toString(){
+		return toArrayString(this.myQuestions)+"</t>"+4785;
+	}
 	
 	
 	
