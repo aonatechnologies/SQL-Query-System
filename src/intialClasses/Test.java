@@ -15,7 +15,7 @@ public class Test{
 		for(Question q : questions){
 			myQuestions.add(new Question(q));
 		}
-		if(allIDs!=null){
+		if(allIDs==null){
 			allIDs = new ArrayList<Integer>();
 			for (int i = 0; i<1000; i++){
 				allIDs.add(i);
