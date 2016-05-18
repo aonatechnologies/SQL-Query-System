@@ -10,6 +10,8 @@ public class Generator{
 	
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
 		Scanner kb = new Scanner(System.in);
+		System.out.println("What be the title of this here test?");
+		String title = kb.nextLine();
 		System.out.print("How many of the question is in this here test? -> ");
 		int amount = kb.nextInt();
 		kb.nextLine();
@@ -32,13 +34,14 @@ public class Generator{
 		System.out.println("How many of these here tests do you want? -> ");
 		amount = kb.nextInt()-1;
 		ArrayList<Test> ts = new ArrayList<Test>();
-		ts.add(new Test(questions,"SAMPLE"));
+		ts.add(new Test(questions));
 		for(int i=0;i<amount;i++){
-			Test temp = new Test(questions,"SAMPLE");
+			Test temp = new Test(questions);
 			temp.randomize();
 			ts.add(temp);
 		}
 		PrintWriter pw = new PrintWriter(ts.get(0)+".test","UTF-8");
+		
 		for(Test t : ts){
 			pw.println(t);
 		}

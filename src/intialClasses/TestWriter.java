@@ -19,7 +19,7 @@ public class TestWriter{
 		
 		int c = 1;
 		while(dotTestReader.hasNextLine()){
-			PrintWriter pw = new PrintWriter(outputDirectory+"Test "+c,"UTF-8");
+			PrintWriter pw = new PrintWriter(outputDirectory+"Test "+c+".txt","UTF-8");
 			
 		}
 	}
