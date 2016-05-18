@@ -30,7 +30,7 @@ public class Question{
 		for(String s : al){
 			output +=s+"</ >";
 		}
-		return output.substring(0,output.length()-5);
+		return output.substring(0,output.length()-4);
 	}
 	
 	
