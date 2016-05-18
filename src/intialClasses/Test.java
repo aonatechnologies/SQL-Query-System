@@ -7,10 +7,10 @@ public class Test{
 	private ArrayList<Question> myQuestions;
 	private int id;
 	private static ArrayList<Integer> allIDs;
-
+	private String myTitle;
 	
 	
-	public Test(ArrayList<Question> questions){
+	public Test(ArrayList<Question> questions,String title){
 		myQuestions = new ArrayList<Question>();
 		for(Question q : questions){
 			myQuestions.add(new Question(q));
@@ -22,6 +22,7 @@ public class Test{
 			}
 		}
 		id = allIDs.remove((int)(Math.random()*allIDs.size()));
+		this.myTitle = title;
 	}
 	public void randomize(){
 		for(int i = 0;i<this.myQuestions.size();i++){
@@ -36,7 +37,9 @@ public class Test{
 		}
 		return output.substring(0,output.length()-7);
 	}
-	
+	public String getTitle(){
+		return myTitle;
+	}
 	public String toString(){
 		return toArrayString(this.myQuestions)+"</t>"+4785;
 	}
