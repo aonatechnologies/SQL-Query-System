@@ -16,8 +16,13 @@ public class TestWriter{
 	
 	
 	public void gimmeTehTests() throws FileNotFoundException, UnsupportedEncodingException{
-		
+		String title = "";
 		int c = 1;
+		if(dotTestReader.hasNextLine()){
+			title = dotTestReader.nextLine();
+		}else{
+			System.out.println("INVALID .test");
+		}
 		while(dotTestReader.hasNextLine()){
 			PrintWriter pw = new PrintWriter(outputDirectory+"Test "+c+".txt","UTF-8");
 			

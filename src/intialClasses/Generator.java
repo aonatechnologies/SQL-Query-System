@@ -40,8 +40,8 @@ public class Generator{
 			temp.randomize();
 			ts.add(temp);
 		}
-		PrintWriter pw = new PrintWriter(ts.get(0)+".test","UTF-8");
-		
+		PrintWriter pw = new PrintWriter(title+".test","UTF-8");
+		pw.println(title);
 		for(Test t : ts){
 			pw.println(t);
 		}
