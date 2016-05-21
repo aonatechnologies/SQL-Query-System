@@ -35,13 +35,18 @@ public class TestWriter{
 			String[] questionsSplit = testSplit[0].split(" < : > ");
 			for(int i =0;i<questionsSplit.length;i++){
 				String[] partsSplit = questionsSplit[i].split("</q>");
-				String[] indSplit = partsSplit[2].split("</ >");
-				pw.println((i+1)+". "+partsSplit[1]);
-				pw.println("   A. "+indSplit[0]);
-				pw.println("   B. "+indSplit[1]);
-				pw.println("   C. "+indSplit[2]);
-				pw.println("   D. "+indSplit[3]);
-				pw.println("   E. "+indSplit[4]);
+				if(partsSplit[0].equals("WRITTEN")){
+					pw.println("~Written Respone~");
+					pw.println(i+". "+partsSplit[2]);
+				}else{
+					String[] indSplit = partsSplit[2].split("</ >");
+					pw.println((i+1)+". "+partsSplit[1]);
+					pw.println("   A. "+indSplit[0]);
+					pw.println("   B. "+indSplit[1]);
+					pw.println("   C. "+indSplit[2]);
+					pw.println("   D. "+indSplit[3]);
+					pw.println("   E. "+indSplit[4]);
+				}
 				pw.println();
 			}
 			pw.println("Don't forget to write your key ID!");

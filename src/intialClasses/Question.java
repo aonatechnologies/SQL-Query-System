@@ -37,6 +37,12 @@ public class Question{
 	public String toString(){
 		return myMasterKeyNum+"</q>"+myPrompt+"</q>"+toArrayString(this.myChoices)+"</q>"+indexOfCorrect;
 	}
+	public int getMyMasterKeyNum() {
+		return myMasterKeyNum;
+	}
+	public String getPrompt() {
+		return myPrompt;
+	}
 	
 	
 	
