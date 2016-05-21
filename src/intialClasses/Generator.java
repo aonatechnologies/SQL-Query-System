@@ -29,6 +29,8 @@ public class Generator{
 			al.add(kb.nextLine());
 			System.out.print("Next answer choice -> ");
 			al.add(kb.nextLine());
+			System.out.print("Next answer choice -> ");
+			al.add(kb.nextLine());
 			questions.add(new Question(prompt,al,i));
 		}
 		System.out.println("How many of these here tests do you want? -> ");
@@ -46,6 +48,8 @@ public class Generator{
 			pw.println(t);
 		}
 		pw.close();
+		TestWriter tw = new TestWriter(title+".test","./");
+		tw.gimmeTehTests();
 	}
 
 

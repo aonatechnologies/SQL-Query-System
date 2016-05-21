@@ -24,9 +24,31 @@ public class TestWriter{
 			System.out.println("INVALID .test");
 		}
 		while(dotTestReader.hasNextLine()){
-			PrintWriter pw = new PrintWriter(outputDirectory+"Test "+c+".txt","UTF-8");
-			
+			PrintWriter pw = new PrintWriter(outputDirectory+title+" "+c+".txt","UTF-8");
+			pw.println("     ----"+title+"---");
+			String[] testSplit = dotTestReader.nextLine().split("</t>");
+			int id = Integer.parseInt(testSplit[1]);
+			pw.println();
+			pw.println("     Key ID ~ "+id);
+			pw.println();
+			pw.println();
+			String[] questionsSplit = testSplit[0].split(" < : > ");
+			for(int i =0;i<questionsSplit.length;i++){
+				String[] partsSplit = questionsSplit[i].split("</q>");
+				String[] indSplit = partsSplit[2].split("</ >");
+				pw.println((i+1)+". "+partsSplit[1]);
+				pw.println("   A. "+indSplit[0]);
+				pw.println("   B. "+indSplit[1]);
+				pw.println("   C. "+indSplit[2]);
+				pw.println("   D. "+indSplit[3]);
+				pw.println("   E. "+indSplit[4]);
+				pw.println();
+			}
+			pw.println("Don't forget to write your key ID!");
+			pw.close();
+			c++;
 		}
+
 	}
 	
 	

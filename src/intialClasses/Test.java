@@ -2,6 +2,7 @@ package intialClasses;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Test{
 	private ArrayList<Question> myQuestions;
@@ -21,7 +22,8 @@ public class Test{
 				allIDs.add(i);
 			}
 		}
-		id = allIDs.remove((int)(Math.random()*allIDs.size()));
+		Random r = new Random();
+		id = allIDs.remove((int)(r.nextInt(allIDs.size())));
 
 	}
 	public void randomize(){
@@ -39,7 +41,7 @@ public class Test{
 	}
 
 	public String toString(){
-		return toArrayString(this.myQuestions)+"</t>"+4785;
+		return toArrayString(this.myQuestions)+"</t>"+id;
 	}
 	
 	

@@ -1,0 +1,27 @@
+     ----Sample---
+
+Key ID ~ 402
+
+
+1. Number 3?
+   A. no
+   B. maybe
+   C. depends
+   D. yes
+   E. so
+
+2. WHY????
+   A. cuz
+   B. dunno
+   C. test writing is boring
+   D. reasons
+   E. logic
+
+3. HOWWWW?
+   A. hurry
+   B. can
+   C. always
+   D. this
+   E. same
+
+Don't forget to write your key ID!
