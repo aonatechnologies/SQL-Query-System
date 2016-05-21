@@ -36,7 +36,7 @@ public class TestWriter{
 			for(int i =0;i<questionsSplit.length;i++){
 				String[] partsSplit = questionsSplit[i].split("</q>");
 				if(partsSplit[0].equals("WRITTEN")){
-					pw.println("~Written Respone~");
+					pw.println("~Written Response~");
 					pw.println(i+". "+partsSplit[2]);
 				}else{
 					String[] indSplit = partsSplit[2].split("</ >");
