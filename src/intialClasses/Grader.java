@@ -8,11 +8,24 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Jonah Tash
+ *
+ */
 public class Grader {
 	private String inDirectory;
 	private PrintWriter scores,breakdown;
 	private ArrayList<Integer> ids;
 	ArrayList<String> answerKey;
+	
+	
+	/**
+	 * @param testLoc
+	 * @param inputDirectory
+	 * @param outputDirectory
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	public Grader(String testLoc, String inputDirectory,String outputDirectory) throws FileNotFoundException, UnsupportedEncodingException{
 		this.answerKey=new ArrayList<String>();
 		this.ids=new ArrayList<Integer>();
@@ -33,6 +46,9 @@ public class Grader {
 	}
 	
 	
+	/**
+	 * @throws FileNotFoundException
+	 */
 	public void grade() throws FileNotFoundException{
 		Scanner kb = new Scanner(System.in);
 		File folder = new File(inDirectory);
@@ -74,6 +90,10 @@ public class Grader {
 		breakdown.close();
 	}
 	
+	/**
+	 * @param c
+	 * @return ur mom
+	 */
 	public static String swap(Character c){
 		
 		if(c=='A'){
