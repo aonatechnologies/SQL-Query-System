@@ -8,7 +8,9 @@ public class Question{
 	private int indexOfCorrect;
 	private String myPrompt;
 	private int myMasterKeyNum;
+	private boolean isWritten;
 	public Question(String prompt, ArrayList<String> choices,int masterKey){
+		isWritten=false;
 		myChoices = new ArrayList<String>();
 		for(String s : choices){
 			myChoices.add(s);
@@ -21,16 +23,17 @@ public class Question{
 		this(other.myPrompt,other.myChoices,other.myMasterKeyNum);
 	}
 	public Question(String prompt, int masterKey) {
+		isWritten = true;
 		myChoices = new ArrayList<String>();
-		myChoices.add("appeasment");
-		myChoices.add("appeasment");
-		myChoices.add("appeasment");
-		myChoices.add("appeasment");
+		myChoices.add("appeasement");
+		myChoices.add("appeasement");
+		myChoices.add("appeasement");
+		myChoices.add("appeasement");
 		this.myPrompt=prompt;
 		this.myMasterKeyNum=masterKey;
 	}
 	public void randomize(){
-		if(this instanceof WrittenQuestion){
+		if(isWritten){
 			
 		}else{
 			if(myChoices.size()==0){
@@ -51,7 +54,12 @@ public class Question{
 	
 	
 	public String toString(){
-		return myMasterKeyNum+"</q>"+myPrompt+"</q>"+toArrayString(this.myChoices)+"</q>"+indexOfCorrect;
+		if(!isWritten){
+			return myMasterKeyNum+"</q>"+myPrompt+"</q>"+toArrayString(this.myChoices)+"</q>"+indexOfCorrect;
+		}else{
+			System.out.println("Hello");
+			return "";
+		}
 	}
 	public int getMyMasterKeyNum() {
 		return myMasterKeyNum;

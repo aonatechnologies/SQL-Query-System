@@ -7,6 +7,7 @@ public class WrittenQuestion extends Question{
 	private int myValue;
 	public WrittenQuestion(String prompt, int value, int masterKey){
 		super(prompt,masterKey);
+		myValue = value;
 
 	}
 	@Override

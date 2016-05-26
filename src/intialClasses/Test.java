@@ -35,7 +35,13 @@ public class Test{
 	public static String toArrayString(ArrayList<Question> al){
 		String output = "";
 		for(Question s : al){
-			output +=s+" < : > ";
+			if(s instanceof WrittenQuestion){
+				System.out.println("hello sir");
+				output+=((WrittenQuestion)s).toString()+" < : > ";
+			}
+			else{
+				output +=s+" < : > ";
+			}
 		}
 		return output.substring(0,output.length()-7);
 	}

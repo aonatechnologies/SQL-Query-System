@@ -29,13 +29,13 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 		finder.addActionListener(this);
 		dotTestFinder = new JFileChooser();
 		dotTestFinder.addActionListener(this);
-		TextField dotTestLoc = new TextField(20);
+		dotTestLoc = new TextField(20);
 		Button dotTestButton = new Button(".test Location");
 		dotTestButton.addActionListener(this);
-		TextField quizLoc = new TextField(20);
+		quizLoc = new TextField(20);
 		Button quizLocButton = new Button("Folder of Answers");
 		quizLocButton.addActionListener(this);
-		TextField outputLoc = new TextField(20);
+		outputLoc = new TextField(20);
 		Button outputButton = new Button("Output Directory");
 		outputButton.addActionListener(this);
 		Button grade = new Button("Grade");
@@ -78,13 +78,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	    		((JFileChooser)e.getSource()).getParent().setVisible(false);
 	    	}else{
 	    		File f = ((JFileChooser)e.getSource()).getSelectedFile();
-	    		if (f==null){
-	    			System.out.println("ERROR");
-	    		}
-	    		if(f.getName()==null){
-	    			System.out.println("YUNULL");
-	    		}
-	    		dotTestLoc.setText(f.getName());
+	    		dotTestLoc.setText(f.getPath());
 	    		((JFileChooser)e.getSource()).getParent().setVisible(false);
 	    	}
 	    }else{

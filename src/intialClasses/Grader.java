@@ -47,9 +47,9 @@ public class Grader implements ActionListener {
 		for(String s : answerKey){
 			ids.add(Integer.parseInt(s.split("</t>")[1]));
 		}
-		this.breakdown=new PrintWriter(title+"_Breakdown.csv","UTF-8");
+		this.breakdown=new PrintWriter(outputDirectory+title+"_Breakdown.csv","UTF-8");
 		breakdown.println("Name Block, Question Number, Answer, Correct Answer");
-		this.scores=new PrintWriter(title+"_Scores.csv","UTF-8");
+		this.scores=new PrintWriter(outputDirectory+title+"_Scores.csv","UTF-8");
 		scores.println("Name Block, Number Correct, Total Points, Percent");
 		
 	}
@@ -66,7 +66,8 @@ public class Grader implements ActionListener {
 			String name = quiz.nextLine().substring(5).trim();
 			String block = quiz.nextLine().substring(6).trim();
 			quiz.nextLine();
-			int key = Integer.parseInt(quiz.nextLine().substring(4).trim());
+			String temp = quiz.nextLine().substring(4).trim();
+			int key = Integer.parseInt(temp);
 			quiz.nextLine();
 			quiz.nextLine();
 			String thisKey = answerKey.get(ids.indexOf(key));
@@ -79,7 +80,6 @@ public class Grader implements ActionListener {
 					String answer = quiz.nextLine().substring((c+"").length()+1).trim().toUpperCase();
 					String correct = swap(questions[c-1].charAt(questions[c-1].length()-1));
 					char correctT = questions[c-1].charAt(questions[c-1].length()-1);
-					System.out.println(correctT);
 					if(!(correct.equals(answer))){
 						breakdown.println(name+" "+block+", "+questions[c-1].charAt(0)+", "+answer+", "+correct);
 					}else{
@@ -100,10 +100,8 @@ public class Grader implements ActionListener {
 					}
 					jf.add(scoreChooser);
 					Button submit = new Button("Submit Score");
+					jf.add(submit);
 					submit.addActionListener(this);
-					System.out.println("Written Response \n Prompt - "+questions[c-1].split("</q>")[2]);
-					System.out.println("Score out of "+questions[c-1].split("</q>")[3]+" -> ");
-					int points = kb.nextInt();
 					score+=points;
 				}
 				c++;
