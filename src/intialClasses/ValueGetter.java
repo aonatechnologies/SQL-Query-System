@@ -14,8 +14,10 @@ public class ValueGetter extends Dialog implements ActionListener{
 	private Button ok;
 	private JTextField input;
 	private boolean conv;
-	public ValueGetter(Frame f, String label){
+	private TGMenu myTGM;
+	public ValueGetter(Frame f, String label,TGMenu tgm){
 		super(f,label);
+		value = 69;
 		ok = new Button("Ok");
 		input = new JTextField();
 		ok.setSize(100, 50);
@@ -25,6 +27,7 @@ public class ValueGetter extends Dialog implements ActionListener{
 		add(input);
 		ok.addActionListener(this);
 		conv = false;
+		this.myTGM=tgm;
 	}
 	public void displayText(String s){
 		input.setText(s);
@@ -46,6 +49,7 @@ public class ValueGetter extends Dialog implements ActionListener{
 		else{
 			value = Integer.parseInt(input.getText());
 			setVisible(false);
+
 		}
 		
 	}

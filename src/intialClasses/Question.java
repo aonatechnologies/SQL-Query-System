@@ -3,13 +3,14 @@ package intialClasses;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Question{
+public class Question extends WrittenQuestion{
 	private ArrayList<String> myChoices;
 	private int indexOfCorrect;
 	private String myPrompt;
 	private int myMasterKeyNum;
 	private boolean isWritten;
 	public Question(String prompt, ArrayList<String> choices,int masterKey){
+		super(prompt,1,masterKey);
 		isWritten=false;
 		myChoices = new ArrayList<String>();
 		for(String s : choices){
@@ -23,6 +24,7 @@ public class Question{
 		this(other.myPrompt,other.myChoices,other.myMasterKeyNum);
 	}
 	public Question(String prompt, int masterKey) {
+		super(prompt,1,masterKey);
 		isWritten = true;
 		myChoices = new ArrayList<String>();
 		myChoices.add("appeasement");

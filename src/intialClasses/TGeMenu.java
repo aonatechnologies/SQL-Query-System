@@ -73,7 +73,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	    		if(isOutput){
 	    			outputLoc.setText(f.getPath()+"\\");
 	    		}else{
-	    			quizLoc.setText(f.getPath()+"\\");
+	    			quizLoc.setText(f.getPath());
 	    		}
 	    		((JFileChooser)e.getSource()).getParent().setVisible(false);
 	    	}else{
@@ -87,7 +87,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 				try {
 					g = new Grader(dotTestLoc.getText(),quizLoc.getText(),outputLoc.getText());
 					g.grade();
-					ValueGetter vg = new ValueGetter(this,"Graded");
+					ValueGetter vg = new ValueGetter(this,"Graded",null);
 					vg.displayText("Grading Complete!");
 					vg.setVisible(true);
 				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
@@ -109,6 +109,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 				
 			}
 			if(((Button)e.getSource()).getLabel().equals("Output Directory")){
+				isOutput = true;
 				Dialog selectPath = new Dialog(this,"Select an Output Directory");
 				isOutput = true;
 				selectPath.add(finder);

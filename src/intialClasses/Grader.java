@@ -1,6 +1,7 @@
 package intialClasses;
 
 import java.awt.Button;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -68,6 +69,7 @@ public class Grader implements ActionListener {
 			quiz.nextLine();
 			String temp = quiz.nextLine().substring(4).trim();
 			int key = Integer.parseInt(temp);
+			System.out.println(key);
 			quiz.nextLine();
 			quiz.nextLine();
 			String thisKey = answerKey.get(ids.indexOf(key));
@@ -86,23 +88,28 @@ public class Grader implements ActionListener {
 						score++;
 					}
 				}else{
-					JFrame jf = new JFrame();
-					jf.setVisible(true);
+					Dialog jf = new Dialog(new JFrame(),"Written Response Scoring");
 					jf.setLayout(new FlowLayout());
 					TextField prompt = new TextField();
+					prompt.setSize(200, 100);
 					prompt.setText(questions[c-1].split("</q>")[2]);
 					jf.add(prompt);
 					TextField response = new TextField();
+					response.setSize(200, 100);
 					jf.add(response);
-					JComboBox<Integer> scoreChooser = new JComboBox<Integer>();
+					scoreChooser = new JComboBox<Integer>();
 					for(int i = 1;i<=Integer.parseInt(questions[c-1].split("</q>")[3]);i++){
 						scoreChooser.addItem(i);
 					}
 					jf.add(scoreChooser);
 					Button submit = new Button("Submit Score");
 					jf.add(submit);
+					jf.pack();
 					submit.addActionListener(this);
+					jf.setModal(true);
+					jf.setVisible(true);
 					score+=points;
+					total+=Integer.parseInt(questions[c-1].split("</q>")[3])-1;
 				}
 				c++;
 			}
@@ -155,7 +162,7 @@ public class Grader implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		points = scoreChooser.getSelectedIndex();
+		points = scoreChooser.getSelectedIndex()+1;
 		((Button)e.getSource()).getParent().setVisible(false);
 		
 	}

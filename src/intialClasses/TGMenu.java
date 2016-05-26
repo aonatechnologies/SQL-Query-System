@@ -32,8 +32,9 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 	private TextField tf4;
 	private TextField tf5, tf6, tf7,outputPath;
 	private Panel top;
-	private ArrayList<Question> questionList;
+	private ArrayList<WrittenQuestion> questionList;
 	private JFileChooser finder;
+	private int tempInt;
 	public TGMenu(Frame topmenu){
 		Mult=true;
 		testCount =0;
@@ -127,10 +128,12 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		top.setVisible(true);
 		setTitle("Test Generator");
 		setSize(1200,500);
-		questionList=new ArrayList<Question>();
+		questionList=new ArrayList<WrittenQuestion>();
 
 	}
-
+	public void setTempInt(int i){
+		this.tempInt=i;
+	}
 	public void windowClosing(WindowEvent evt) {
 	      System.exit(0);  // Terminate the program
 	}
@@ -185,7 +188,7 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 					pw.println(t);
 				}
 				pw.close();
-				ValueGetter vg = new ValueGetter(this,"Done");
+				ValueGetter vg = new ValueGetter(this,"Done",null);
 				vg.conevert();
 				vg.setVisible(true);
 				try {
@@ -225,7 +228,8 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 						tf4.setText("");
 						tf5.setText("");
 					}else{
-						ValueGetter vg = new ValueGetter(this,"Value");
+						ValueGetter vg = new ValueGetter(this,"Please input the point value of this question",this);
+						vg.setModal(true);
 						vg.setVisible(true);
 						questionList.add(new WrittenQuestion(ta.getText(),vg.getValue(),testCount));
 						System.out.println(questionList.get(questionList.size()-1));

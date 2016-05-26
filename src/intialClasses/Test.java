@@ -5,16 +5,16 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Test{
-	private ArrayList<Question> myQuestions;
+	private ArrayList<WrittenQuestion> myQuestions;
 	private int id;
 	private static ArrayList<Integer> allIDs;
 
 	
 	
-	public Test(ArrayList<Question> questions){
-		myQuestions = new ArrayList<Question>();
-		for(Question q : questions){
-			myQuestions.add(new Question(q));
+	public Test(ArrayList<WrittenQuestion> questions){
+		myQuestions = new ArrayList<WrittenQuestion>();
+		for(WrittenQuestion q : questions){
+			myQuestions.add(new WrittenQuestion(q));
 		}
 		if(allIDs==null){
 			allIDs = new ArrayList<Integer>();
@@ -32,15 +32,15 @@ public class Test{
 		}
 		Collections.shuffle(this.myQuestions);
 	}
-	public static String toArrayString(ArrayList<Question> al){
+	public static String toArrayString(ArrayList<WrittenQuestion> al){
 		String output = "";
-		for(Question s : al){
+		for(WrittenQuestion s : al){
 			if(s instanceof WrittenQuestion){
 				System.out.println("hello sir");
 				output+=((WrittenQuestion)s).toString()+" < : > ";
 			}
 			else{
-				output +=s+" < : > ";
+				output +=s.toString()+" < : > ";
 			}
 		}
 		return output.substring(0,output.length()-7);
