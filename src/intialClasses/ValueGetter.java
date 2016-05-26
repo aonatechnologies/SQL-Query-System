@@ -26,6 +26,11 @@ public class ValueGetter extends Dialog implements ActionListener{
 		ok.addActionListener(this);
 		conv = false;
 	}
+	public void displayText(String s){
+		input.setText(s);
+		input.setEnabled(false);
+		conv = true;
+	}
 	public void conevert(){
 		input.setText("Test made!");
 		input.setEnabled(false);
