@@ -6,7 +6,12 @@ public class WrittenQuestion extends Question{
 	
 	private int myValue;
 	public WrittenQuestion(String prompt, int value, int masterKey){
-		super(prompt,new ArrayList<String>(),masterKey);
+		super(prompt,masterKey);
+
+	}
+	@Override
+	public void randomize(){
+		//Do nothing
 	}
 	public String toString(){
 		return "WRITTEN"+"</q>"+super.getMyMasterKeyNum()+"</q>"+super.getPrompt()+"</q>"+myValue;

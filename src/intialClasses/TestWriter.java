@@ -17,14 +17,19 @@ public class TestWriter{
 	
 	public void gimmeTehTests() throws FileNotFoundException, UnsupportedEncodingException{
 		String title = "";
-		int c = 1;
+		int c = 0;
 		if(dotTestReader.hasNextLine()){
 			title = dotTestReader.nextLine();
 		}else{
 			System.out.println("INVALID .test");
 		}
 		while(dotTestReader.hasNextLine()){
-			PrintWriter pw = new PrintWriter(outputDirectory+title+" "+c+".txt","UTF-8");
+			PrintWriter pw;
+			if(c==0){
+				pw = new PrintWriter(outputDirectory+title+" MASTER"+".txt","UTF-8");
+			}else{
+				pw = new PrintWriter(outputDirectory+title+" "+c+".txt","UTF-8");
+			}
 			pw.println("     ----"+title+"---");
 			String[] testSplit = dotTestReader.nextLine().split("</t>");
 			int id = Integer.parseInt(testSplit[1]);
@@ -45,7 +50,6 @@ public class TestWriter{
 					pw.println("   B. "+indSplit[1]);
 					pw.println("   C. "+indSplit[2]);
 					pw.println("   D. "+indSplit[3]);
-					pw.println("   E. "+indSplit[4]);
 				}
 				pw.println();
 			}

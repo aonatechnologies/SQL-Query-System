@@ -4,15 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
-public class TGMenu extends Frame implements WindowListener, ActionListener{
+public class TGMenu extends Frame implements WindowListener, ActionListener, ItemListener{
 	private int testCount;
 	private TextField testC;
 	public boolean Mult;
@@ -21,8 +30,10 @@ public class TGMenu extends Frame implements WindowListener, ActionListener{
 	private TextField tf2;
 	private TextField tf3;
 	private TextField tf4;
-	private TextField tf5;
+	private TextField tf5, tf6, tf7,outputPath;
 	private Panel top;
+	private ArrayList<Question> questionList;
+	private JFileChooser finder;
 	public TGMenu(Frame topmenu){
 		Mult=true;
 		testCount =0;
@@ -38,10 +49,10 @@ public class TGMenu extends Frame implements WindowListener, ActionListener{
 		Panel qtyp = new Panel();
 		CheckboxGroup qtype = new CheckboxGroup();
 		Checkbox c1 =new Checkbox("Multiple Choice", qtype, true);
-
 		qtyp.add(c1);
 		Checkbox c2 = new Checkbox("Free Response", qtype, false);
-
+		c1.addItemListener(this);
+		c2.addItemListener(this);
 		qtyp.add(c2);
 		MC.add(qtyp);
 		MC.add(new Label("Correct Answer:"));
@@ -90,14 +101,23 @@ public class TGMenu extends Frame implements WindowListener, ActionListener{
 		MC.setVisible(true);
 		
 		
-		TextField tf6 = new TextField(20);
+		tf6 = new TextField(20);
 		top.add(new Label("Number of students "));
-		TextField tf7 = new TextField(5);
+		tf7 = new TextField(5);
 		top.add(tf7);
 		top.add(new Label("||  Test Name"));
 		top.add(tf6);
 		Button submit = new Button("Finish Test");
+		submit.addActionListener(this);
 		top.add(submit);
+		finder = new JFileChooser();
+		finder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		finder.addActionListener(this);
+		Button outputter = new Button("Output Path");
+		outputter.addActionListener(this);
+		outputPath = new TextField(20);
+		top.add(outputPath);
+		top.add(outputter);
 		add(top, BorderLayout.NORTH);
 		Button back = new Button("Back to Top Menu");
 		back.addActionListener(new CM(this));
@@ -107,8 +127,10 @@ public class TGMenu extends Frame implements WindowListener, ActionListener{
 		top.setVisible(true);
 		setTitle("Test Generator");
 		setSize(1200,500);
+		questionList=new ArrayList<Question>();
 
 	}
+
 	public void windowClosing(WindowEvent evt) {
 	      System.exit(0);  // Terminate the program
 	}
@@ -120,12 +142,112 @@ public class TGMenu extends Frame implements WindowListener, ActionListener{
 	@Override public void windowDeactivated(WindowEvent evt) { }
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(ta.getText().equals("")||Mult&&(tf2.getText().equals("")||tf3.getText().equals("")||tf4.getText().equals("")||tf5.getText().equals(""))){
-			Dia dia1 = new Dia(this,"Error");
-		}else{
-			testCount++;
-			testC.setText(testCount+" questions created");
+		if(e.getSource() instanceof JFileChooser){
+			File f = ((JFileChooser)e.getSource()).getSelectedFile();
+			outputPath.setText(f.getPath()+"\\");
+			finder.getParent().setVisible(false);
+		}
+		if(e.getSource() instanceof Checkbox){
+			if(((Checkbox)e.getSource()).getLabel().equals("Free Response")){
+				Mult=false;
+				System.out.println("Changed to false");
+			}else{
+				if(((Checkbox)e.getSource()).getLabel().equals("Multiple Choice")){
+					Mult=true;
+					System.out.println("Changed to true");
+				}
+			}
+		}
+		if(e.getSource() instanceof Button){
+			if(((Button)e.getSource()).getLabel().equals("Output Path")){
+				Dialog choosePath = new Dialog(this,"Choose the Output Directory");
+				choosePath.add(finder);
+				choosePath.setVisible(true);
+				choosePath.pack();
+			}
+			if(((Button)e.getSource()).getLabel().equals("Finish Test")){
+				PrintWriter pw = null;
+				try {
+					pw = new PrintWriter(outputPath.getText()+tf6.getText()+".test","UTF-8");
+				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				pw.println(tf6.getText());
+				ArrayList<Test> tests = new ArrayList<Test>();
+				tests.add(new Test(questionList));
+				for(int i = 0; i<Integer.parseInt(tf7.getText());i++){
+					Test temp = new Test(questionList);
+					temp.randomize();
+					tests.add(temp);
+				}
+				for(Test t : tests){
+					pw.println(t);
+				}
+				pw.close();
+				ValueGetter vg = new ValueGetter(this,"Done");
+				vg.conevert();
+				vg.setVisible(true);
+				try {
+					TestWriter tw = new TestWriter(outputPath.getText()+tf6.getText()+".test",outputPath.getText());
+					tw.gimmeTehTests();
+				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 			
+			if(((Button)e.getSource()).getLabel().equals("Submit question")){
+				String[] reserved = {" < : > ","</t>","</q>","</ >"};
+				boolean cont = true;
+				if(ta.getText().equals("")||Mult&&(tf2.getText().equals("")||tf3.getText().equals("")||tf4.getText().equals("")||tf5.getText().equals(""))){
+					Dia dia1 = new Dia(this,"Error","Please fill in all fields");
+					cont = false;
+				}
+				for(String s : reserved){
+					if(ta.getText().equals(s)||Mult&&(tf2.getText().equals(s)||tf3.getText().equals(s)||tf4.getText().equals(s)||tf5.getText().equals(s))){
+						Dia dia1 = new Dia(this,"Error","Reserved string "+s+" used");
+						cont = false;
+					}
+				}
+				if(cont){
+					testCount++;
+					if(Mult){
+						ArrayList<String> temp = new ArrayList<String>();
+						temp.add(tf2.getText());
+						temp.add(tf3.getText());
+						temp.add(tf4.getText());
+						temp.add(tf5.getText());
+						questionList.add(new Question(ta.getText(),temp,testCount));
+						ta.setText("");
+						tf2.setText("");
+						tf3.setText("");
+						tf4.setText("");
+						tf5.setText("");
+					}else{
+						ValueGetter vg = new ValueGetter(this,"Value");
+						vg.setVisible(true);
+						questionList.add(new WrittenQuestion(ta.getText(),vg.getValue(),testCount));
+						System.out.println(questionList.get(questionList.size()-1));
+						ta.setText("");
+					}
+					testC.setText(testCount+" questions created");
+				}
+			}
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getSource() instanceof Checkbox){
+			if(((Checkbox)e.getSource()).getLabel().equals("Free Response")){
+				Mult=false;
+			}else{
+				if(((Checkbox)e.getSource()).getLabel().equals("Multiple Choice")){
+					Mult=true;
+				}
+			}
 		}
 	}
 }
+

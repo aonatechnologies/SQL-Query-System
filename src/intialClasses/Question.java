@@ -20,10 +20,26 @@ public class Question{
 	public Question(Question other){
 		this(other.myPrompt,other.myChoices,other.myMasterKeyNum);
 	}
+	public Question(String prompt, int masterKey) {
+		myChoices = new ArrayList<String>();
+		myChoices.add("appeasment");
+		myChoices.add("appeasment");
+		myChoices.add("appeasment");
+		myChoices.add("appeasment");
+		this.myPrompt=prompt;
+		this.myMasterKeyNum=masterKey;
+	}
 	public void randomize(){
-		String temp = myChoices.get(indexOfCorrect);
-		Collections.shuffle(myChoices);
-		indexOfCorrect = myChoices.indexOf(temp);
+		if(this instanceof WrittenQuestion){
+			
+		}else{
+			if(myChoices.size()==0){
+				System.out.println("ERROR");
+			}
+			String temp = myChoices.get(indexOfCorrect);
+			Collections.shuffle(myChoices);
+			indexOfCorrect = myChoices.indexOf(temp);
+		}
 	}
 	public static String toArrayString(ArrayList<String> al){
 		String output = "";

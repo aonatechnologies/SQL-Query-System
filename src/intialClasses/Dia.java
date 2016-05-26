@@ -8,10 +8,10 @@ import java.awt.event.WindowListener;
 
 
 public class Dia extends Dialog implements WindowListener{
-	public Dia(Frame f,String s){
+	public Dia(Frame f,String s,String labelText){
 		super(f,s);
-		add(new Label("Fields empty. Try again."));
-		setSize(50,100);
+		add(new Label(labelText));
+		pack();
 		addWindowListener(this);
 		setVisible(true);
 	}

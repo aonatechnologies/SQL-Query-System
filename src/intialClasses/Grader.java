@@ -1,5 +1,10 @@
 package intialClasses;
 
+import java.awt.Button;
+import java.awt.FlowLayout;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,16 +13,20 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
 /**
  * @author Jonah Tash
  *
  */
-public class Grader {
+public class Grader implements ActionListener {
 	private String inDirectory;
 	private PrintWriter scores,breakdown;
 	private ArrayList<Integer> ids;
 	ArrayList<String> answerKey;
-	
+	private int points;
+	private JComboBox<Integer> scoreChooser;
 	
 	/**
 	 * @param testLoc
@@ -77,6 +86,21 @@ public class Grader {
 						score++;
 					}
 				}else{
+					JFrame jf = new JFrame();
+					jf.setVisible(true);
+					jf.setLayout(new FlowLayout());
+					TextField prompt = new TextField();
+					prompt.setText(questions[c-1].split("</q>")[2]);
+					jf.add(prompt);
+					TextField response = new TextField();
+					jf.add(response);
+					JComboBox<Integer> scoreChooser = new JComboBox<Integer>();
+					for(int i = 1;i<=Integer.parseInt(questions[c-1].split("</q>")[3]);i++){
+						scoreChooser.addItem(i);
+					}
+					jf.add(scoreChooser);
+					Button submit = new Button("Submit Score");
+					submit.addActionListener(this);
 					System.out.println("Written Response \n Prompt - "+questions[c-1].split("</q>")[2]);
 					System.out.println("Score out of "+questions[c-1].split("</q>")[3]+" -> ");
 					int points = kb.nextInt();
@@ -128,5 +152,13 @@ public class Grader {
 		}else{
 			return "";
 		}
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		points = scoreChooser.getSelectedIndex();
+		((Button)e.getSource()).getParent().setVisible(false);
+		
 	}
 }
