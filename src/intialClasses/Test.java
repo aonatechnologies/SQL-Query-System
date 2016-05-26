@@ -14,7 +14,11 @@ public class Test{
 	public Test(ArrayList<WrittenQuestion> questions){
 		myQuestions = new ArrayList<WrittenQuestion>();
 		for(WrittenQuestion q : questions){
-			myQuestions.add(new WrittenQuestion(q));
+			if(q instanceof WrittenQuestion){
+				myQuestions.add(new WrittenQuestion(q));
+			}else{
+				myQuestions.add(new Question((Question)q));
+			}
 		}
 		if(allIDs==null){
 			allIDs = new ArrayList<Integer>();
