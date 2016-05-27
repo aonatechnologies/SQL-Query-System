@@ -104,7 +104,7 @@ public class Grader implements ActionListener {
 					jf.add(responseLabel);
 					jf.add(response);
 					scoreChooser = new JComboBox<Integer>();
-					for(int i = 1;i<=Integer.parseInt(questions[c-1].split("</q>")[3]);i++){
+					for(int i = 0;i<=Integer.parseInt(questions[c-1].split("</q>")[3]);i++){
 						scoreChooser.addItem(i);
 					}
 					jf.add(scoreChooser);

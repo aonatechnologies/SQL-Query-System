@@ -52,10 +52,10 @@ public class TestWriter{
 					pw.println("   D. "+indSplit[3]);
 				}
 				pw.println();
-				c++;
 			}
 			pw.println("Don't forget to write your key ID!");
 			pw.close();
+			c++;
 		}
 
 	}
