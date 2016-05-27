@@ -42,7 +42,7 @@ public class TestWriter{
 				String[] partsSplit = questionsSplit[i].split("</q>");
 				if(partsSplit[0].equals("WRITTEN")){
 					pw.println("~Written Response~");
-					pw.println(i+". "+partsSplit[2]);
+					pw.println((i+1)+". "+partsSplit[2]);
 				}else{
 					String[] indSplit = partsSplit[2].split("</ >");
 					pw.println((i+1)+". "+partsSplit[1]);
@@ -52,10 +52,10 @@ public class TestWriter{
 					pw.println("   D. "+indSplit[3]);
 				}
 				pw.println();
+				c++;
 			}
 			pw.println("Don't forget to write your key ID!");
 			pw.close();
-			c++;
 		}
 
 	}
