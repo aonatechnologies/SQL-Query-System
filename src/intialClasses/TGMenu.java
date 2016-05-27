@@ -153,11 +153,9 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		if(e.getSource() instanceof Checkbox){
 			if(((Checkbox)e.getSource()).getLabel().equals("Free Response")){
 				Mult=false;
-				System.out.println("Changed to false");
 			}else{
 				if(((Checkbox)e.getSource()).getLabel().equals("Multiple Choice")){
 					Mult=true;
-					System.out.println("Changed to true");
 				}
 			}
 		}
@@ -232,7 +230,6 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 						vg.setModal(true);
 						vg.setVisible(true);
 						questionList.add(new WrittenQuestion(ta.getText(),vg.getValue(),testCount));
-						System.out.println(questionList.get(questionList.size()-1));
 						ta.setText("");
 					}
 					testC.setText(testCount+" questions created");

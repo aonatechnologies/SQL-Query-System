@@ -3,6 +3,8 @@ package intialClasses;
 import java.awt.Button;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Label;
+import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +71,6 @@ public class Grader implements ActionListener {
 			quiz.nextLine();
 			String temp = quiz.nextLine().substring(4).trim();
 			int key = Integer.parseInt(temp);
-			System.out.println(key);
 			quiz.nextLine();
 			quiz.nextLine();
 			String thisKey = answerKey.get(ids.indexOf(key));
@@ -90,12 +91,17 @@ public class Grader implements ActionListener {
 				}else{
 					Dialog jf = new Dialog(new JFrame(),"Written Response Scoring");
 					jf.setLayout(new FlowLayout());
-					TextField prompt = new TextField();
+					TextArea prompt = new TextArea();
+					Label promptLabel = new Label("Prompt: ");
+					Label responseLabel = new Label("Response: ");
 					prompt.setSize(200, 100);
 					prompt.setText(questions[c-1].split("</q>")[2]);
+					jf.add(promptLabel);
 					jf.add(prompt);
-					TextField response = new TextField();
+					TextArea response = new TextArea();
 					response.setSize(200, 100);
+					response.setText(quiz.nextLine().substring((c+".").length()).trim());
+					jf.add(responseLabel);
 					jf.add(response);
 					scoreChooser = new JComboBox<Integer>();
 					for(int i = 1;i<=Integer.parseInt(questions[c-1].split("</q>")[3]);i++){

@@ -21,8 +21,9 @@ import javax.swing.filechooser.FileFilter;
 public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	private JFileChooser finder,dotTestFinder;
 	private TextField dotTestLoc,quizLoc,outputLoc; 
+	boolean isOutput;
 	public TGeMenu(Frame topmenu){
-
+		isOutput = false;
 		setLayout(new FlowLayout());
 	    finder = new JFileChooser();
 		finder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -66,7 +67,6 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
 	public void actionPerformed(ActionEvent e) {
-	    boolean isOutput = false;
 		if(e.getSource() instanceof JFileChooser){
 	    	if(((JFileChooser)e.getSource()).getFileSelectionMode()==JFileChooser.DIRECTORIES_ONLY){
 	    		File f = ((JFileChooser)e.getSource()).getSelectedFile();
@@ -91,7 +91,6 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 					vg.displayText("Grading Complete!");
 					vg.setVisible(true);
 				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-					System.out.println("oops!");
 					e1.printStackTrace();
 				}
 	    	}
@@ -106,11 +105,13 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 				selectPath.add(finder);
 				selectPath.pack();
 				selectPath.setVisible(true);
+				isOutput = false;
 				
 			}
 			if(((Button)e.getSource()).getLabel().equals("Output Directory")){
 				isOutput = true;
 				Dialog selectPath = new Dialog(this,"Select an Output Directory");
+				selectPath.setModal(true);
 				isOutput = true;
 				selectPath.add(finder);
 				selectPath.pack();

@@ -14,10 +14,10 @@ public class Test{
 	public Test(ArrayList<WrittenQuestion> questions){
 		myQuestions = new ArrayList<WrittenQuestion>();
 		for(WrittenQuestion q : questions){
-			if(q instanceof WrittenQuestion){
-				myQuestions.add(new WrittenQuestion(q));
-			}else{
+			if(q instanceof Question){
 				myQuestions.add(new Question((Question)q));
+			}else{
+				myQuestions.add(new WrittenQuestion(q));
 			}
 		}
 		if(allIDs==null){
@@ -40,7 +40,6 @@ public class Test{
 		String output = "";
 		for(WrittenQuestion s : al){
 			if(s instanceof WrittenQuestion){
-				System.out.println("hello sir");
 				output+=((WrittenQuestion)s).toString()+" < : > ";
 			}
 			else{

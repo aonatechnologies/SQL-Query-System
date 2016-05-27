@@ -59,7 +59,6 @@ public class Question extends WrittenQuestion{
 		if(!isWritten){
 			return myMasterKeyNum+"</q>"+myPrompt+"</q>"+toArrayString(this.myChoices)+"</q>"+indexOfCorrect;
 		}else{
-			System.out.println("Hello");
 			return "";
 		}
 	}
