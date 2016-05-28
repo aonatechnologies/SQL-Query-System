@@ -168,7 +168,7 @@ public class Grader implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		points = scoreChooser.getSelectedIndex()+1;
+		points = scoreChooser.getSelectedIndex();
 		((Button)e.getSource()).getParent().setVisible(false);
 		
 	}

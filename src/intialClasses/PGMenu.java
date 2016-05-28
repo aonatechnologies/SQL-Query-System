@@ -6,7 +6,9 @@ import java.awt.Button;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.MenuComponent;
+import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +19,14 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.UnsupportedEncodingException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 
 
 public class PGMenu extends Frame implements WindowListener,ActionListener{
 	private JFileChooser finder,dotTestFinder;
-	private TextField question,answer,quizLoc,outputLoc; 
+	private TextField numOfArgs,quizLoc,outputLoc; 
+	private String myVersion;
 	public PGMenu(Frame topmenu){
 		setLayout(new FlowLayout());
 		addWindowListener(this);
@@ -31,8 +35,8 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 		finder.addActionListener(this);
 		dotTestFinder = new JFileChooser();
 		dotTestFinder.addActionListener(this);
-		question = new TextField(20);
-		answer = new TextField(20);
+		numOfArgs = new TextField(20);
+		Label argNumLabel = new Label("Number of test case arguements:");
 		Button dotTestButton = new Button("Add Test Case");
 		dotTestButton.addActionListener(this);
 		quizLoc = new TextField(20);
@@ -43,9 +47,12 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 		outputButton.addActionListener(this);
 		Button grade = new Button("Grade");
 		grade.addActionListener(this);
-		add(question);
-		add(answer);
+		Button selectVersion = new Button("Select Python Version");
+		selectVersion.addActionListener(this);
+		add(argNumLabel);
+		add(numOfArgs);
 		add(dotTestButton);
+		add(selectVersion);
 		add(quizLoc);
 		add(quizLocButton);
 		add(outputLoc);
@@ -56,7 +63,7 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 		back.addActionListener(new OpenTG(topmenu));
 		add(back);
 		addWindowListener(this);
-		setTitle("Test Grader");
+		setTitle("Python Grader");
 		setSize(700,500);
 	}
 	
@@ -70,6 +77,31 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
 	public void actionPerformed(ActionEvent e) {
-	    
+		TextField input=new  TextField(20);
+		if(e.getSource() instanceof Button){
+	    	if(((Button)e.getSource()).getLabel().equals("Select Python Version")){
+	    		System.out.println("reached");
+	    		Dialog versionPopUp = new Dialog(this,"Select Version");
+	    		versionPopUp.setLayout(new BoxLayout(versionPopUp,BoxLayout.Y_AXIS));
+	    		versionPopUp.setModal(true);
+	    		TextArea ta = new TextArea();
+	    		ta.setText("Please enter the current version of Python on your device in the form MAJORMINOR.\nFor example Python 3.4.1 would be entered as 34");
+	    		ta.setEditable(false);
+	    		versionPopUp.add(ta);
+	    		Button enter = new Button("Submit");
+	    		enter.addActionListener(this);
+	    		versionPopUp.add(input);
+	    		versionPopUp.add(enter);
+	    		versionPopUp.pack();
+	    		versionPopUp.setVisible(true);
+	    	}
+	    	if(((Button)e.getSource()).getLabel().equals("Submit")){
+	    		myVersion = input.getText();
+	    		((Button)e.getSource()).getParent().setVisible(false);
+	    	}
+	    	if(((Button)e.getSource()).getLabel().equals("Add Test Case")){
+	    		
+	    	}
+	    }
 	}
 }
