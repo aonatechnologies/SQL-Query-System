@@ -163,6 +163,7 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 			if(((Button)e.getSource()).getLabel().equals("Output Path")){
 				Dialog choosePath = new Dialog(this,"Choose the Output Directory");
 				choosePath.add(finder);
+				choosePath.setLocationRelativeTo(this);
 				choosePath.setVisible(true);
 				choosePath.pack();
 			}
@@ -188,6 +189,7 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 				pw.close();
 				ValueGetter vg = new ValueGetter(this,"Done",null);
 				vg.conevert();
+				vg.setLocationRelativeTo(this);
 				vg.setVisible(true);
 				try {
 					TestWriter tw = new TestWriter(outputPath.getText()+tf6.getText()+".test",outputPath.getText());
@@ -228,6 +230,7 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 					}else{
 						ValueGetter vg = new ValueGetter(this,"Please input the point value of this question",this);
 						vg.setModal(true);
+						vg.setLocationRelativeTo(this);
 						vg.setVisible(true);
 						questionList.add(new WrittenQuestion(ta.getText(),vg.getValue(),testCount));
 						ta.setText("");

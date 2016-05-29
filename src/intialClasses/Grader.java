@@ -91,6 +91,7 @@ public class Grader implements ActionListener {
 				}else{
 					Dialog jf = new Dialog(new JFrame(),"Written Response Scoring");
 					jf.setLayout(new FlowLayout());
+					jf.setLocationRelativeTo(jf.getParent());
 					TextArea prompt = new TextArea();
 					Label promptLabel = new Label("Prompt: ");
 					Label responseLabel = new Label("Response: ");
