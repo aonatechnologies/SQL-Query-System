@@ -35,6 +35,10 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	private ArrayList<String> myOutputs;
 	ArrayList<TextField> inputs;
 	TextField exOutput;
+	PrintWriter scoreWriter,breakdownWriter;
+	BufferedReader bf;
+	TextField input;
+	boolean isPython;
 	public PGMenu(Frame topmenu){
 		myArgs = "";
 		myOutputs = new ArrayList<String>();
@@ -87,8 +91,6 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
 	public void actionPerformed(ActionEvent e) {
-		TextField input=new  TextField(20);
-		boolean isPython = false;
 		if(e.getSource() instanceof JFileChooser){
 			if(isPython){
 				quizLoc.setText(((JFileChooser)e.getSource()).getSelectedFile().getPath());
@@ -100,7 +102,6 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 		}
 		if(e.getSource() instanceof Button){
 			if(((Button)e.getSource()).getLabel().equals("Select Python Version")){
-	    		System.out.println("reached");
 	    		Dialog versionPopUp = new Dialog(this,"Select Version");
 	    		versionPopUp.setLayout(new BoxLayout(versionPopUp,BoxLayout.Y_AXIS));
 	    		versionPopUp.setModal(true);
@@ -110,6 +111,7 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	    		versionPopUp.add(ta);
 	    		Button enter = new Button("Submit");
 	    		enter.addActionListener(this);
+	    		input = new TextField(20);
 	    		versionPopUp.add(input);
 	    		versionPopUp.add(enter);
 	    		versionPopUp.pack();
@@ -117,30 +119,27 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	    		versionPopUp.setVisible(true);
 	    	}
 			if(((Button)e.getSource()).getLabel().equals("Grade")){
-				PrintWriter scoreWriter = null;
 				try {
-					scoreWriter = new PrintWriter(outputLoc+"\\PythonScores.csv","UTF-8");
-				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+					scoreWriter = new PrintWriter(outputLoc.getText()+"\\PythonScores.csv");
+				} catch (FileNotFoundException e3) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e3.printStackTrace();
 				}
-				PrintWriter breakdownWriter = null;
 				try {
-					breakdownWriter = new PrintWriter(outputLoc+"\\PythonBreakdown.csv","UTF-8");
-				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+					breakdownWriter = new PrintWriter(outputLoc.getText()+"\\PythonBreakdown.csv");
+				} catch (FileNotFoundException e3) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e3.printStackTrace();
 				}
 				scoreWriter.println("Name, Correct, Total, Percent");
 				breakdownWriter.println("Name, Returned, Expected, Passed/Failed");
 				double total = myOutputs.size();
 				for(File f :new File(quizLoc.getText()).listFiles()){
 					int studScore = 0;
-					BufferedReader bf = null;
 					try {
-						bf = new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("C:\\+Python"+myVersion+" "+f.getPath()+myArgs.substring(0,myArgs.length()-1)).getInputStream()));
+						bf = new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("C:\\Python"+myVersion+"\\python.exe "+f.getPath()+" "+myArgs.substring(0,myArgs.length()-1)).getInputStream()));
 					} catch (IOException e2) {
-						// TODO Auto-generated catch block
+						System.out.println("yikes");
 						e2.printStackTrace();
 					}
 					String line=null;
@@ -153,13 +152,16 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 							}else{
 								breakdownWriter.println(f.getName().substring(0,f.getName().length()-2)+", "+line+", "+myOutputs.get(c)+", Failed");
 							}
+							c++;
 						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					scoreWriter.println(f.getName().substring(0,f.getName().length()-2)+", "+studScore+", "+total+", "+studScore/total);
-			}
+				}
+				scoreWriter.close();
+				breakdownWriter.close();
 			}
 	    	if(((Button)e.getSource()).getLabel().equals("Submit")){
 	    		myVersion = input.getText();
