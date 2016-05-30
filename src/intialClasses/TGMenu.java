@@ -21,6 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
+/**
+ * The menu for generating test.
+ * @author Jonah Tash
+ *
+ */
 public class TGMenu extends Frame implements WindowListener, ActionListener, ItemListener{
 	private int testCount;
 	private TextField testC;
@@ -35,6 +40,10 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 	private ArrayList<WrittenQuestion> questionList;
 	private JFileChooser finder;
 	private int tempInt;
+	/**
+	 * Constructs the layout of the Test Generator GUI. It also constructs the components of the menu and adds them onto the menu's frame.
+	 * @param topmenu The parent menu of this sub-menu.
+	 */
 	public TGMenu(Frame topmenu){
 		Mult=true;
 		testCount =0;
@@ -100,8 +109,6 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		testC.setText(testCount+" questions created");
 		MC.add(testC);
 		MC.setVisible(true);
-		
-		
 		tf6 = new TextField(20);
 		top.add(new Label("Number of students "));
 		tf7 = new TextField(5);
@@ -110,7 +117,6 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		top.add(tf6);
 		Button submit = new Button("Finish Test");
 		submit.addActionListener(this);
-		top.add(submit);
 		finder = new JFileChooser();
 		finder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		finder.addActionListener(this);
@@ -119,6 +125,8 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		outputPath = new TextField(20);
 		top.add(outputPath);
 		top.add(outputter);
+		top.add(tf6);
+		top.add(submit);
 		add(top, BorderLayout.NORTH);
 		Button back = new Button("Back to Top Menu");
 		back.addActionListener(new CM(this));
@@ -143,6 +151,9 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 	@Override public void windowDeiconified(WindowEvent evt) { }
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JFileChooser){
@@ -241,6 +252,9 @@ public class TGMenu extends Frame implements WindowListener, ActionListener, Ite
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getSource() instanceof Checkbox){

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Generator{
 	
-	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
+/*	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{
 		Scanner kb = new Scanner(System.in);
 		System.out.println("What be the title of this here test?");
 		String title = kb.nextLine();
@@ -50,7 +50,7 @@ public class Generator{
 		pw.close();
 		TestWriter tw = new TestWriter(title+".test","./");
 		tw.gimmeTehTests();
-	}
+	}*/
 
 
 

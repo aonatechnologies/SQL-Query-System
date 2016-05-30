@@ -6,15 +6,31 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
+/**
+ * This class provides an encapsulated method for generating .txt files that contain a unique permutation of a test to be shown to students.
+ * @author Jonah Tash
+ *
+ */
 public class TestWriter{
 	Scanner dotTestReader;
 	String outputDirectory;
+	/**
+	 * @param dotTestLocation The location of the .test answer key from which .txt files test will be produced
+	 * @param outputDirectory The desired system path location for the outputted .txt files.
+	 * @throws FileNotFoundException
+	 * Constructs a TestWriter from a .test answer key on which to base the outputted .txt files and an output directory to put the .txt files.
+	 */
 	public TestWriter(String dotTestLocation, String outputDirectory) throws FileNotFoundException{
 		dotTestReader = new Scanner(new FileReader(dotTestLocation));
 		this.outputDirectory=outputDirectory;
 	}
 	
 	
+	/**
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 * Outputs the .txt tests in a readable format from the input data given by the inputted .test file.
+	 */
 	public void gimmeTehTests() throws FileNotFoundException, UnsupportedEncodingException{
 		String title = "";
 		int c = 0;

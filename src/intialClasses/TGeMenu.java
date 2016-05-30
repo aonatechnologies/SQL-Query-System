@@ -3,6 +3,7 @@ import java.awt.Button;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.MenuComponent;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -18,10 +19,19 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 
+/**
+ * The menu for grading tests.
+ * @author Jonah Tash
+ *
+ */
 public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	private JFileChooser finder,dotTestFinder;
-	private TextField dotTestLoc,quizLoc,outputLoc; 
+	private TextField dotTestLoc,quizLoc,outputLoc,mCWeight; 
 	boolean isOutput;
+	/**
+	 * Constructs the layout of the Test Grader GUI. It also constructs the components of the menu and adds them onto the menu's frame.
+	 * @param topmenu The parent menu of this sub-menu.
+	 */
 	public TGeMenu(Frame topmenu){
 		isOutput = false;
 		setLayout(new FlowLayout());
@@ -38,11 +48,15 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 		quizLocButton.addActionListener(this);
 		outputLoc = new TextField(20);
 		Button outputButton = new Button("Output Directory");
+		mCWeight = new TextField(20);
+		mCWeight.setText("1");
 		outputButton.addActionListener(this);
 		Button grade = new Button("Grade");
 		grade.addActionListener(this);
 		add(dotTestLoc);
 		add(dotTestButton);
+		add(new Label("Multiple choice weight"));
+		add(mCWeight);
 		add(quizLoc);
 		add(quizLocButton);
 		add(outputLoc);
@@ -66,6 +80,9 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	@Override public void windowDeiconified(WindowEvent evt) { }
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JFileChooser){
 	    	if(((JFileChooser)e.getSource()).getFileSelectionMode()==JFileChooser.DIRECTORIES_ONLY){
@@ -85,7 +102,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 	    	if(((Button)e.getSource()).getLabel().equals("Grade")){
 	    		Grader g;
 				try {
-					g = new Grader(dotTestLoc.getText(),quizLoc.getText(),outputLoc.getText());
+					g = new Grader(dotTestLoc.getText(),quizLoc.getText(),outputLoc.getText(),Integer.parseInt(mCWeight.getText()));
 					g.grade();
 					ValueGetter vg = new ValueGetter(this,"Graded",null);
 					vg.displayText("Grading Complete!");

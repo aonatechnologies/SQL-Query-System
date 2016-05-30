@@ -24,26 +24,43 @@ import javax.swing.JFrame;
  *
  */
 public class Grader implements ActionListener {
+	/**
+	 * The system path containing the .txt files with the students' responses.
+	 */
 	private String inDirectory;
+	/**
+	 * Outputs the .csv files containing the students' results to the desired output directory.
+	 */
 	private PrintWriter scores,breakdown;
+	/**
+	 * The list of ids written in the students' .txts
+	 */
 	private ArrayList<Integer> ids;
+	/**
+	 * Contains the line by line read of the given .test file
+	 */
 	ArrayList<String> answerKey;
-	private int points;
+	private int points,myMCWeight;
 	private JComboBox<Integer> scoreChooser;
 	
 	/**
 	 * @param testLoc
-	 * @param inputDirectory
-	 * @param outputDirectory
+	 * The system path location of the .test file that corresponds with the test.
+	 * @param inputDirectory The directory containing the student submitted .txt files.
+	 * @param outputDirectory The desired location of the .csv output files.
+	 * @param mcWeight The weight of the multiple choice answers. For example a 10 question test with 1 5-point written response and a weight of 1 would be worth a total of 14 points. A 10 question test with 1 5-point written response and a weight of 2 would be worth a total of 23 points. 
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
+	 * Constructs a Grader that outputs two .csv files to the given output directory. The .cvs contain the results when the given input directory of .txt student answers is checked against the .test answer key located at testLoc with the given multiple choice the weight .
+	 * Throws a FileNotFoundError in the event that the given input, output or .test locations are invalid
 	 */
-	public Grader(String testLoc, String inputDirectory,String outputDirectory) throws FileNotFoundException, UnsupportedEncodingException{
+	public Grader(String testLoc, String inputDirectory,String outputDirectory,int mcWeight) throws FileNotFoundException, UnsupportedEncodingException{
 		this.answerKey=new ArrayList<String>();
 		this.ids=new ArrayList<Integer>();
 		this.inDirectory=inputDirectory;
 		Scanner dotTestReader=new Scanner(new FileReader(testLoc));
 		String title =dotTestReader.nextLine();
+		this.myMCWeight=mcWeight;
 		while(dotTestReader.hasNextLine()){
 			answerKey.add(dotTestReader.nextLine());
 		}
@@ -59,7 +76,11 @@ public class Grader implements ActionListener {
 	
 	
 	/**
+	 * Grades the .txt files in the given input directory based on the given .test file path. For all written response questions this method will display a dialog containing the prompt of the question and what the student wrote for said question.
+	 * The output of this method is two .csv files located in the path of the outputDirectory. One of the .csv files is called the breakdown, it contains the information on what multiple choice questions students incorrectly answered. 
+	 * The second is the scores file, it contains the percent and ratio scores each student received.
 	 * @throws FileNotFoundException
+	 * 
 	 */
 	public void grade() throws FileNotFoundException{
 		Scanner kb = new Scanner(System.in);
@@ -76,7 +97,7 @@ public class Grader implements ActionListener {
 			String thisKey = answerKey.get(ids.indexOf(key));
 			int c = 1;
 			String[] questions = thisKey.split("</t>")[0].split(" < : > ");
-			int total=questions.length;
+			int total=0;
 			double score =0;
 			while(quiz.hasNextLine()&&c-1<questions.length){
 				if(!(questions[c-1].substring(0,1).equals("W"))){
@@ -86,8 +107,9 @@ public class Grader implements ActionListener {
 					if(!(correct.equals(answer))){
 						breakdown.println(name+" "+block+", "+questions[c-1].charAt(0)+", "+answer+", "+correct);
 					}else{
-						score++;
+						score+=this.myMCWeight;
 					}
+					total+=myMCWeight;
 				}else{
 					Dialog jf = new Dialog(new JFrame(),"Written Response Scoring");
 					jf.setLayout(new FlowLayout());
@@ -116,7 +138,7 @@ public class Grader implements ActionListener {
 					jf.setModal(true);
 					jf.setVisible(true);
 					score+=points;
-					total+=Integer.parseInt(questions[c-1].split("</q>")[3])-1;
+					total+=Integer.parseInt(questions[c-1].split("</q>")[3]);
 				}
 				c++;
 			}
@@ -127,8 +149,8 @@ public class Grader implements ActionListener {
 	}
 	
 	/**
-	 * @param c
-	 * @return ur mom
+	 * @param c A character that is either a number 0-4 or a letter A-E
+	 * @return The corresponding letter if the input is a number, i.e 0 returns A. And vice-versa.
 	 */
 	public static String swap(Character c){
 		

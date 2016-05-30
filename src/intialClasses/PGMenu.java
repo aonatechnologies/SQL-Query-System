@@ -162,6 +162,9 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 				}
 				scoreWriter.close();
 				breakdownWriter.close();
+				ValueGetter vg = new ValueGetter(this,"Graded",null);
+				vg.displayText("Grading Complete!");
+				vg.setVisible(true);
 			}
 	    	if(((Button)e.getSource()).getLabel().equals("Submit")){
 	    		myVersion = input.getText();
