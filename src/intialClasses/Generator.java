@@ -6,6 +6,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * USED FOR TESTING PURPOSES ONLY
+ * @author Jonah Tash
+ *
+ */
 public class Generator{
 	
 /*	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException{

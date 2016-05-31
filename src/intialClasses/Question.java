@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * A representation a multiple choice question that has a prompt and answer choices.
  * @author Jonah Tash
  *
  */

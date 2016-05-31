@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
+ * A method to associate a specific permutation of a set of questions with a unique ID.
  * @author Jonah Tash
  *
  */

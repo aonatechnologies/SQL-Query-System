@@ -7,18 +7,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
+/**
+ * A MouseListener that enables a given TextFiels on a MouseEvent.
+ * @author Jonah Tash
+ *
+ */
 public class DClick2 implements MouseListener {
 	private TextField t1;
-	private TextField t3;
-	private TextField t2;
-	private TGMenu f;
-	
-	public DClick2(TextField tf1,TextField tf2,TextField tf3,TGMenu menu){
+	/**
+	 * @param tf1 The TextFiel to be enabled on a MouseEvent.
+	 */
+	public DClick2(TextField tf1){
 		t1=tf1;
-		t2=tf2;
-		t3=tf3;
 
-		f=menu;
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -37,12 +38,12 @@ public class DClick2 implements MouseListener {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		t1.setEditable(true);
-		t2.setEditable(true);
-		t3.setEditable(true);
-
 	}
 
 	@Override

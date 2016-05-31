@@ -8,7 +8,16 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
+/**
+ * The menu used to navigate to the three different portions of AONA Tech's Test Generator and Grader, the Generator UI, the Grader UI,
+ *  and the Python Grader UI
+ * @author Jonah Tash
+ *
+ */
 public class TopMenu extends Frame implements ActionListener, WindowListener{
+	/**
+	 * Constructs the TopMenu's three buttons one to navigate to each portion of AONA Tech's Test Generator and Grader.
+	 */
 	public TopMenu(){
 		setLayout(new FlowLayout());
 		Button but1  = new Button("Test Generator");

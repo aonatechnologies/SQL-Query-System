@@ -7,7 +7,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
+/**
+ * A specialized Dialog used to display a certain message.
+ * @author Thomas Wrona
+ *
+ */
 public class Dia extends Dialog implements WindowListener{
+	/**
+	 * @param f The parent frame of this Dia.
+	 * @param s The window label of this Dia.
+	 * @param labelText The text to be displayed in this Dia.
+	 */
 	public Dia(Frame f,String s,String labelText){
 		super(f,s);
 		add(new Label(labelText));

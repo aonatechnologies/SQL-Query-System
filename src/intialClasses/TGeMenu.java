@@ -104,7 +104,7 @@ public class TGeMenu extends Frame implements WindowListener,ActionListener{
 				try {
 					g = new Grader(dotTestLoc.getText(),quizLoc.getText(),outputLoc.getText(),Integer.parseInt(mCWeight.getText()));
 					g.grade();
-					ValueGetter vg = new ValueGetter(this,"Graded",null);
+					ValueGetter vg = new ValueGetter(this,"Graded");
 					vg.displayText("Grading Complete!");
 					vg.setVisible(true);
 				} catch (FileNotFoundException | UnsupportedEncodingException e1) {

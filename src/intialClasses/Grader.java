@@ -20,6 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 /**
+ * An concise method to run through a directory of student responses to a given 
+ * test, whose answers are stored in a given .test file.
  * @author Jonah Tash
  *
  */

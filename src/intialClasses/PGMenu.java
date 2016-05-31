@@ -28,6 +28,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 
 
+/**
+ * The Python Grader menu. *** Note this menu is a WIP, this is not a complete build***.
+ * @author Jonah Tash
+ *
+ */
 public class PGMenu extends Frame implements WindowListener,ActionListener{
 	private JFileChooser finder,dotTestFinder;
 	private TextField numOfArgs,quizLoc,outputLoc; 
@@ -39,6 +44,10 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	BufferedReader bf;
 	TextField input;
 	boolean isPython;
+	/**
+	 *Constructs the layout of the Python Grader GUI. It also constructs the components of the menu and adds them onto the menu's frame.
+	 * @param topmenu The parent menu of this sub-menu.
+	 */
 	public PGMenu(Frame topmenu){
 		myArgs = "";
 		myOutputs = new ArrayList<String>();
@@ -90,6 +99,9 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 	@Override public void windowDeiconified(WindowEvent evt) { }
 	@Override public void windowActivated(WindowEvent evt) { }
 	@Override public void windowDeactivated(WindowEvent evt) { }
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JFileChooser){
 			if(isPython){
@@ -162,7 +174,7 @@ public class PGMenu extends Frame implements WindowListener,ActionListener{
 				}
 				scoreWriter.close();
 				breakdownWriter.close();
-				ValueGetter vg = new ValueGetter(this,"Graded",null);
+				ValueGetter vg = new ValueGetter(this,"Graded");
 				vg.displayText("Grading Complete!");
 				vg.setVisible(true);
 			}
